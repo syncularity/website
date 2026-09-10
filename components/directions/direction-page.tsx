@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { Artwork } from './artwork';
 import { directions, directionNames, type Direction } from '../../lib/directions';
+import { motionStudies, motionNames, type MotionStudy } from '../../lib/resonance-motion';
 import './directions.css';
 
-export function DirectionPage({ kind }: { kind: Direction }) {
+export function DirectionPage({ kind, motionStudy }: { kind: Direction; motionStudy?: MotionStudy }) {
   return <div className={`direction ${kind}`}>
     <div className="direction-stage">
       <header className="direction-header">
@@ -13,7 +14,7 @@ export function DirectionPage({ kind }: { kind: Direction }) {
       <main className="direction-main" id="main">
         {kind === 'resonance' && <>
           <div className="art-caption"><span>Music, art & technology</span><span className="caption-line" /></div>
-          <Artwork kind={kind} />
+          <Artwork kind={kind} motionStudy={motionStudy} />
           <div className="direction-title"><p>A new frequency is taking shape.</p><h1>Syncularity<span>✳</span></h1></div>
           <span className="coordinate" aria-hidden="true">+<br /><br /><br />+</span>
         </>}
@@ -32,10 +33,14 @@ export function DirectionPage({ kind }: { kind: Direction }) {
       </main>
       <footer className="direction-footer"><span>{kind === 'groove' ? 'Syncularity © 2026' : 'Independent by nature.'}</span><span>{kind === 'groove' ? 'Stay curious.': 'Stay tuned.'}</span></footer>
     </div>
-    <nav className="direction-review" aria-label="Design directions">
+    {motionStudy ? <nav className="direction-review" aria-label="Resonance motion studies">
+      <a href="/resonance" className="review-label">Resonance <span> / Motion studies</span></a>
+      <div>{motionStudies.map((value, i) => <Link key={value} href={`/resonance/${value}`} aria-current={motionStudy === value ? 'page' : undefined}><span>0{i + 1}</span> {motionNames[value]}</Link>)}</div>
+      <Link className="review-hint" href="/directions/resonance">Original Resonance ↗</Link>
+    </nav> : <nav className="direction-review" aria-label="Design directions">
       <a href="/directions" className="review-label">Design study <span> / 2026</span></a>
       <div>{directions.map((value, i) => <Link key={value} href={`/directions/${value}`} aria-current={kind === value ? 'page' : undefined}><span>0{i + 1}</span> {directionNames[value]}</Link>)}</div>
       <span className="review-hint">Three directions. One frequency.</span>
-    </nav>
+    </nav>}
   </div>;
 }

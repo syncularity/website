@@ -34,4 +34,10 @@ No environment variables are needed. Never commit `.vercel`, environment files, 
 
 The artwork is original procedural geometry with no external assets or added runtime dependencies. Each design has its own fixed palette: near-black, warm paper, and electric blue. Run `node scripts/generate-direction-stills.mjs` under Node 24 after changing the geometry to regenerate the complete SVG fallbacks. Motion runs at a capped frame rate, stops when paused, offscreen or in hidden tabs, and respects reduced-motion settings. Pointer response is limited to fine pointers. Static artwork and navigation remain available without JavaScript.
 
+### Resonance motion studies
+
+`/resonance` compares three ASCII sculptures inside the unchanged Resonance composition: `/resonance/mercury`, `/resonance/strange-loop`, and `/resonance/chorus`. Mercury deforms a liquid ring, Strange Loop rotates a continuous trefoil tube, and Chorus opens and folds a harmonic membrane. The studies share the original palette, wordmark, copy, spacing, motion controls, and renderer lifecycle. The earlier `/directions` review remains available for comparison.
+
+After modifying these surfaces, run `node scripts/generate-motion-stills.mjs` to regenerate their local SVG fallbacks. Geometry tests cover a minute of motion, pointer extremes, ASCII-only output, depth-cell uniqueness, and bounds. Choosing a study does not publish it as the homepage.
+
 PostCSS is overridden to a patched 8.x release because the pinned Next.js 15 release otherwise installs an older vulnerable parser. Keep the dependency audit clean when updating the lockfile.

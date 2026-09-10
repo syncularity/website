@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from 'react';
 import { createArtwork, paintArtwork, type Direction } from '../../lib/directions';
+import { createMotionArtwork, type MotionStudy } from '../../lib/resonance-motion';
 
-export function Artwork({ kind }: { kind: Direction }) {
+export function Artwork({ kind, motionStudy }: { kind: Direction; motionStudy?: MotionStudy }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -20,7 +21,8 @@ export function Artwork({ kind }: { kind: Direction }) {
     let targetX = 0, targetY = 0, pointerX = 0, pointerY = 0;
     const canRun = () => !disposed && !paused && !reduced.matches && visible && !document.hidden;
     const draw = () => {
-      paintArtwork(ctx, createArtwork(kind, elapsed, pointerX, pointerY));
+      paintArtwork(ctx, motionStudy ? createMotionArtwork(motionStudy, elapsed, pointerX, pointerY)
+        : createArtwork(kind, elapsed, pointerX, pointerY));
       host.dataset.ready = 'true';
     };
     const tick = (now: number) => {
@@ -73,10 +75,10 @@ export function Artwork({ kind }: { kind: Direction }) {
       reduced.removeEventListener('change', sync); document.removeEventListener('visibilitychange', sync);
       button.hidden = true; delete host.dataset.ready;
     };
-  }, [kind]);
+  }, [kind, motionStudy]);
 
-  return <div className="direction-art" ref={hostRef}>
-    <img src={`/directions/${kind}.svg`} width="1000" height="800" alt="" className="art-still" fetchPriority="high" draggable="false" />
+  return <div className="direction-art" ref={hostRef} data-study={motionStudy}>
+    <img src={motionStudy ? `/resonance/${motionStudy}.svg` : `/directions/${kind}.svg`} width="1000" height="800" alt="" className="art-still" fetchPriority="high" draggable="false" />
     <canvas ref={canvasRef} aria-hidden="true" />
     <button className="direction-motion" ref={buttonRef} type="button" hidden>Pause motion Ⅱ</button>
   </div>;
