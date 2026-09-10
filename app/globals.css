@@ -1,0 +1,42 @@
+:root { color-scheme: dark; --paper: #08090b; --ink: #eeeef2; --muted: #9799a3; --accent: #b7a3ff; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
+.page { min-height: 100svh; display: flex; flex-direction: column; padding: 30px 48px 22px; max-width: 2000px; margin: auto; }
+header, footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+header { min-height: 34px; }
+.brand { display: inline-flex; gap: 11px; align-items: center; font-size: 18px; font-weight: 600; letter-spacing: -.6px; color: inherit; text-decoration: none; }
+.edition, .eyebrow, .signature, button { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; }
+.edition { color: var(--muted); font-size: 10px; letter-spacing: 2px; }
+main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 0 70px; }
+.sculpture { width: min(840px, 100%); height: clamp(220px, 38vw, 380px); display: grid; place-items: center; position: relative; }
+#signal { color: #c6c1d9; font: 9px/1.05 'SFMono-Regular', Consolas, 'Liberation Mono', monospace; letter-spacing: .6px; margin: 0; user-select: none; white-space: pre; text-align: left; }
+.crosshair { position: absolute; top: 50%; color: #50505d; font: 17px monospace; }
+.crosshair-left { left: 0; } .crosshair-right { right: 0; }
+.identity { text-align: center; position: relative; margin-top: 4px; }
+.eyebrow { display: flex; justify-content: center; align-items: center; gap: 9px; color: var(--accent); font-size: 9px; letter-spacing: 2.3px; margin: 0 0 23px; }
+.status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+h1 { font-size: clamp(49px, 7.2vw, 92px); line-height: 1; font-weight: 500; letter-spacing: -.065em; margin: 0; }
+.period { color: var(--accent); }
+.tagline { color: var(--muted); font-size: 15px; letter-spacing: .05px; margin: 22px 0 0; line-height: 1.5; }
+footer { min-height: 45px; border-top: 1px solid #202127; padding-top: 16px; }
+.signature { font-size: 9px; letter-spacing: 1.4px; color: var(--muted); }
+.divider { padding: 0 8px; color: #62636d; }
+button { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 4px; padding: 11px 8px; margin: -8px; font-size: 10px; min-height: 44px; cursor: pointer; }
+button[hidden] { display: none; }
+button:hover { color: var(--ink); } .motion-icon { font-size: 13px; width: 14px; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+@media (min-height: 900px) and (min-width: 700px) { main { padding-bottom: 100px; } .sculpture { height: 440px; } }
+@media (max-width: 650px) {
+  .page { padding: 22px 22px 18px; }
+  .brand { font-size: 16px; } .brand img { width: 24px; height: 24px; }
+  .edition { font-size: 8px; letter-spacing: 1px; }
+  main { padding: 24px 0 62px; }
+  .sculpture { height: 270px; width: 100%; }
+  #signal { font-size: clamp(4px, 1.17vw, 7px); letter-spacing: 0; }
+  .crosshair { display: none; }
+  .eyebrow { font-size: 8px; margin-bottom: 20px; }
+  .tagline { font-size: 13px; margin-top: 18px; }
+  .signature { font-size: 8px; letter-spacing: .6px; max-width: 175px; line-height: 1.8; }
+  .divider { padding: 0 3px; }
+}
+@media (max-height: 620px) and (min-width: 651px) { main { padding: 15px 0 28px; } .sculpture { height: 220px; } #signal { font-size: 6px; } h1 { font-size: 56px; } }
