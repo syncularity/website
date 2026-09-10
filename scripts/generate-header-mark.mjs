@@ -16,4 +16,7 @@ for (let row = 1; row <= 11; row++) {
     glyphs.push(`<text x="${23 + col * 8}" y="${16 + row * 8}" fill="${edge ? '#b3f2d2' : '#e1e8e4'}" opacity="${opacity.toFixed(2)}">${glyph}</text>`);
   }
 }
-writeFileSync(new URL('../public/ascii-play.svg', import.meta.url), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><g font-family="monospace" font-size="9" font-weight="700" text-anchor="middle" dominant-baseline="central">${glyphs.join('')}</g></svg>\n`);
+const field = `<g font-family="monospace" font-size="9" font-weight="700" text-anchor="middle" dominant-baseline="central">${glyphs.join('')}</g>`;
+writeFileSync(new URL('../public/ascii-play.svg', import.meta.url), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">${field}</svg>\n`);
+// Keep the same symbol readable against both light and dark browser tabs.
+writeFileSync(new URL('../public/ascii-play-icon.svg', import.meta.url), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="26" fill="#090d0c"/>${field}</svg>\n`);
