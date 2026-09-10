@@ -43,3 +43,7 @@ Small screens use a coarser glyph grid and a capped 1.5 device-pixel ratio. Sust
 After modifying these surfaces, run `node scripts/generate-motion-stills.mjs` to regenerate their local SVG fallbacks. Geometry tests cover a minute of motion, pointer extremes, ASCII-only output, depth-cell uniqueness, bounds, and compact-render silhouette preservation. The code must be released separately before it changes production.
 
 PostCSS is overridden to a patched 8.x release because the pinned Next.js 15 release otherwise installs an older vulnerable parser. Keep the dependency audit clean when updating the lockfile.
+
+### Share card
+
+`public/share/mercury-v1.png` is the static 1200 × 630 share image used by Open Graph and large-image social cards. It embeds the selected ASCII artwork and the site's Helvetica Neue wordmark, so consumers need no JavaScript or fonts. `scripts/share-card.html` is its source composition: capture it in Chrome on macOS at 1200 × 630 with device scale factor 1 after its image loads. Commit the rendered PNG when updating the composition; use a new filename when replacing it to avoid reusing a cached image URL. Messaging services can still cache previously shared page metadata.
