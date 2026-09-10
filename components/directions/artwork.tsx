@@ -14,14 +14,13 @@ export function Artwork({ kind, motionStudy }: { kind: Direction; motionStudy?: 
     if (!host || !canvas || !button) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const fine = matchMedia('(hover: hover) and (pointer: fine)');
     let paused = false, visible = true, disposed = false;
     let frame = 0, last = 0, elapsed = 0;
     let compact = matchMedia('(max-width: 700px)').matches;
     let slowFrames = 0;
     let targetX = 0, targetY = 0, pointerX = 0, pointerY = 0;
-    const canRun = () => !disposed && !paused && !reduced.matches && visible && !document.hidden;
+    const canRun = () => !disposed && !paused && visible && !document.hidden;
     const draw = () => {
       const start = performance.now();
       paintArtwork(ctx, motionStudy ? createMotionArtwork(motionStudy, elapsed, pointerX, pointerY, compact)
@@ -48,13 +47,11 @@ export function Artwork({ kind, motionStudy }: { kind: Direction; motionStudy?: 
     };
     const sync = () => {
       cancelAnimationFrame(frame); frame = 0; last = 0;
-      host.dataset.motion = reduced.matches ? 'reduced' : paused ? 'paused' : 'playing';
+      host.dataset.motion = paused ? 'paused' : 'playing';
       const stage = host.closest<HTMLElement>('.direction-stage');
       if (stage) stage.dataset.motion = canRun() ? 'playing' : 'stopped';
-      button.disabled = reduced.matches;
-      button.setAttribute('aria-pressed', String(paused || reduced.matches));
-      button.textContent = reduced.matches ? 'Motion off' : paused ? 'Play motion ↗' : 'Pause motion Ⅱ';
-      if (reduced.matches) { pointerX = pointerY = targetX = targetY = 0; draw(); }
+      button.setAttribute('aria-pressed', String(paused));
+      button.textContent = paused ? 'Play motion ↗' : 'Pause motion Ⅱ';
       if (canRun()) frame = requestAnimationFrame(tick);
     };
     const resize = () => {
@@ -78,13 +75,13 @@ export function Artwork({ kind, motionStudy }: { kind: Direction; motionStudy?: 
     observer.observe(host); intersection.observe(host);
     host.addEventListener('pointermove', move); host.addEventListener('pointerleave', leave);
     button.addEventListener('click', toggle);
-    reduced.addEventListener('change', sync); document.addEventListener('visibilitychange', sync);
+    document.addEventListener('visibilitychange', sync);
     button.hidden = false; resize(); sync();
     return () => {
       disposed = true; cancelAnimationFrame(frame); observer.disconnect(); intersection.disconnect();
       host.removeEventListener('pointermove', move); host.removeEventListener('pointerleave', leave);
       button.removeEventListener('click', toggle);
-      reduced.removeEventListener('change', sync); document.removeEventListener('visibilitychange', sync);
+      document.removeEventListener('visibilitychange', sync);
       button.hidden = true; delete host.dataset.ready;
     };
   }, [kind, motionStudy]);

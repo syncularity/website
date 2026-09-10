@@ -19,7 +19,6 @@
   0%, 100% { transform: translateX(-.5px) scale(.97); }
   50% { transform: translateX(.5px) scale(1.03); }
 }
-@media (prefers-reduced-motion: reduce) { .ascii-play-mark { animation: none; } }
 .making { font: 10px var(--yz-type-family-mono); letter-spacing: 1.2px; display: flex; align-items: center; gap: 9px; text-transform: uppercase; color: var(--yz-color-text-muted); }
 .making i { background: var(--yz-color-accent); width: 5px; height: 5px; border-radius: 50%; }
 .direction-main { padding: 0; width: 100%; min-height: 690px; flex: 1; display: block; position: relative; }
@@ -150,5 +149,5 @@
   .study-grid { grid-template-columns: 1fr; gap: 38px; }.study-footer { font-size: 10px; line-height: 1.6; }
 }
 @media (max-width: 360px) { .direction-stage { padding-inline: 16px; } .direction-review > div a { font-size: 8px; padding-inline: 7px; }.direction-art { top: 75px; }.groove .direction-art { top: 236px; }.bloom .direction-art { top: 38px; } }
-@media (prefers-reduced-motion: reduce) { .study-image img { transition: none; }.study-card:hover img { transform: none; }.mercury .making i { animation: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .study-image img { transition: none; }.study-card:hover img { transform: none; }}
 @media (forced-colors: active) { .direction-review a[aria-current] { border: 2px solid LinkText; }.direction-art { forced-color-adjust: none; }.making i { background: CanvasText; } }
