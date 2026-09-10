@@ -9,7 +9,11 @@ export function DirectionPage({ kind, motionStudy, review = true }: { kind: Dire
   return <div className={`direction ${kind}${selected ? ' mercury' : ''}${review ? '' : ' selected-home'}`}>
     <div className="direction-stage">
       <header className="direction-header">
-        <a href="/" className="direction-brand" aria-label="Syncularity home"><svg className="direction-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 16h3l3-8 7 16 3-8h4" /><path d="M6 23h3M23 9h3" opacity=".5" /></svg>{kind !== 'bloom' && <span>Syncularity</span>}</a>
+        <a href="/" className="direction-brand" aria-label="Syncularity home">
+          {selected ? <img className="direction-mark mercury-mark" src="/mercury-icon.svg" width="36" height="36" alt="" draggable="false" />
+            : <svg className="direction-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 16h3l3-8 7 16 3-8h4" /><path d="M6 23h3M23 9h3" opacity=".5" /></svg>}
+          {kind !== 'bloom' && <span>Syncularity</span>}
+        </a>
         <span className="making"><i aria-hidden="true" /> In the making</span>
       </header>
       <main className="direction-main" id="main">
