@@ -13,6 +13,22 @@ export const metadata: Metadata = {
     url: '/',
     siteName: 'Syncularity',
     type: 'website',
+    images: [{
+      url: '/share/mercury-v1.png',
+      width: 1200,
+      height: 630,
+      type: 'image/png',
+      alt: 'A silver and mint ASCII Mercury sculpture above the Syncularity wordmark.',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Syncularity',
+    description: 'A new frequency is taking shape.',
+    images: [{
+      url: '/share/mercury-v1.png',
+      alt: 'A silver and mint ASCII Mercury sculpture above the Syncularity wordmark.',
+    }],
   },
   icons: { icon: '/mercury-icon.svg' },
 };
