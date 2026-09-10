@@ -1,6 +1,6 @@
 # Syncularity website
 
-The public placeholder for Syncularity uses the selected Mercury ASCII sculpture in the Resonance composition, a matching ASCII header mark, and the company wordmark. Built with Next.js 15 and React 19.
+The public placeholder for Syncularity uses the selected Mercury ASCII sculpture in the Resonance composition, an ASCII play-symbol header mark, and the company wordmark. Built with Next.js 15 and React 19.
 
 ## Development
 
@@ -40,7 +40,7 @@ The artwork is original procedural geometry with no external assets or added run
 
 Small screens use a coarser glyph grid and a capped 1.5 device-pixel ratio. Sustained rendering costs above 18 ms also reduce geometry and glyph density on larger screens. Detail only decreases during a mounted session, avoiding repeated visual switching. All artwork remains capped at 24 frames per second, with no React state updates in the frame loop.
 
-The selected Mercury header reuses the favicon artwork with an 18-second CSS transform animation. It follows the artwork's shared motion state, including pause, hidden tabs and offscreen suspension, and remains static with reduced motion or without JavaScript.
+The selected Mercury header uses a right-facing play symbol built from ASCII characters, with a gentle 12-second CSS transform animation. Regenerate its SVG with `node scripts/generate-header-mark.mjs`. It follows the artwork's shared motion state, including pause, hidden tabs and offscreen suspension, and remains static with reduced motion or without JavaScript.
 
 After modifying these surfaces, run `node scripts/generate-motion-stills.mjs` to regenerate their local SVG fallbacks. Geometry tests cover a minute of motion, pointer extremes, ASCII-only output, depth-cell uniqueness, bounds, and compact-render silhouette preservation. The code must be released separately before it changes production.
 
