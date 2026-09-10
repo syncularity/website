@@ -86,6 +86,7 @@ export function createArtwork(kind: Direction, time = 0, pointerX = 0, pointerY 
 export function paintArtwork(ctx: CanvasRenderingContext2D, art: Artwork) {
   ctx.clearRect(0, 0, 1000, 800);
   ctx.font = '8px monospace';
+  let fontSize = 8;
   for (const line of art.strokes) {
     ctx.beginPath(); ctx.globalAlpha = line.alpha; ctx.strokeStyle = line.color; ctx.lineWidth = line.width;
     line.points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
@@ -93,7 +94,10 @@ export function paintArtwork(ctx: CanvasRenderingContext2D, art: Artwork) {
   }
   for (const mark of art.marks) {
     ctx.globalAlpha = mark.alpha; ctx.fillStyle = mark.color;
-    if (mark.glyph) ctx.fillText(mark.glyph, mark.x, mark.y);
+    if (mark.glyph) {
+      if (mark.size !== fontSize) { fontSize = mark.size; ctx.font = `${fontSize}px monospace`; }
+      ctx.fillText(mark.glyph, mark.x, mark.y);
+    }
     else ctx.fillRect(mark.x, mark.y, mark.size * 1.6, mark.size * 1.6);
   }
   ctx.globalAlpha = 1;

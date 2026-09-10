@@ -4,12 +4,13 @@ import { directions, directionNames, type Direction } from '../../lib/directions
 import { motionStudies, motionNames, type MotionStudy } from '../../lib/resonance-motion';
 import './directions.css';
 
-export function DirectionPage({ kind, motionStudy }: { kind: Direction; motionStudy?: MotionStudy }) {
-  return <div className={`direction ${kind}`}>
+export function DirectionPage({ kind, motionStudy, review = true }: { kind: Direction; motionStudy?: MotionStudy; review?: boolean }) {
+  const selected = motionStudy === 'mercury';
+  return <div className={`direction ${kind}${selected ? ' mercury' : ''}${review ? '' : ' selected-home'}`}>
     <div className="direction-stage">
       <header className="direction-header">
         <a href="/" className="direction-brand" aria-label="Syncularity home"><svg className="direction-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 16h3l3-8 7 16 3-8h4" /><path d="M6 23h3M23 9h3" opacity=".5" /></svg>{kind !== 'bloom' && <span>Syncularity</span>}</a>
-        <span className="making"><i /> In the making</span>
+        <span className="making"><i aria-hidden="true" /> In the making</span>
       </header>
       <main className="direction-main" id="main">
         {kind === 'resonance' && <>
@@ -31,9 +32,9 @@ export function DirectionPage({ kind, motionStudy }: { kind: Direction; motionSt
           <span className="bloom-coordinate left" aria-hidden="true">+</span><span className="bloom-coordinate right" aria-hidden="true">+</span>
         </>}
       </main>
-      <footer className="direction-footer"><span>{kind === 'groove' ? 'Syncularity © 2026' : 'Independent by nature.'}</span><span>{kind === 'groove' ? 'Stay curious.': 'Stay tuned.'}</span></footer>
+      <footer className="direction-footer">{!selected && <span>{kind === 'groove' ? 'Syncularity © 2026' : 'Independent by nature.'}</span>}<span>{kind === 'groove' ? 'Stay curious.': 'Stay tuned.'}</span></footer>
     </div>
-    {motionStudy ? <nav className="direction-review" aria-label="Resonance motion studies">
+    {review && (motionStudy ? <nav className="direction-review" aria-label="Resonance motion studies">
       <a href="/resonance" className="review-label">Resonance <span> / Motion studies</span></a>
       <div>{motionStudies.map((value, i) => <Link key={value} href={`/resonance/${value}`} aria-current={motionStudy === value ? 'page' : undefined}><span>0{i + 1}</span> {motionNames[value]}</Link>)}</div>
       <Link className="review-hint" href="/directions/resonance">Original Resonance ↗</Link>
@@ -41,6 +42,6 @@ export function DirectionPage({ kind, motionStudy }: { kind: Direction; motionSt
       <a href="/directions" className="review-label">Design study <span> / 2026</span></a>
       <div>{directions.map((value, i) => <Link key={value} href={`/directions/${value}`} aria-current={kind === value ? 'page' : undefined}><span>0{i + 1}</span> {directionNames[value]}</Link>)}</div>
       <span className="review-hint">Three directions. One frequency.</span>
-    </nav>}
+    </nav>)}
   </div>;
 }

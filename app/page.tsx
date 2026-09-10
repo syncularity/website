@@ -1,5 +1,5 @@
-import { Placeholder } from '../components/placeholder';
+import { DirectionPage } from '../components/directions/direction-page';
 
 export default function Home() {
-  return <Placeholder />;
+  return <DirectionPage kind="resonance" motionStudy="mercury" review={false} />;
 }

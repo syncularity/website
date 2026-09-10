@@ -32,6 +32,11 @@
 .caption-line { display: block; width: 52px; height: 1px; background: var(--yz-color-border); }
 .coordinate { position: absolute; left: 0; top: 210px; color: var(--yz-color-text-muted); font: 12px/70px var(--yz-type-family-mono); }
 .direction-footer { border-top: 1px solid var(--yz-color-border); margin-top: 20px; min-height: 61px; padding: 8px 0; color: var(--yz-color-text-muted); font: 10px var(--yz-type-family-mono); }
+.mercury .direction-footer { justify-content: flex-end; }
+.selected-home .direction-stage { min-height: 100svh; }
+.mercury .making i { animation: status-blink 2.8s ease-in-out infinite; animation-play-state: paused; }
+.mercury .direction-stage[data-motion='playing'] .making i { animation-play-state: running; }
+@keyframes status-blink { 0%, 30%, 100% { opacity: 1; } 55%, 70% { opacity: .2; } }
 .direction-review { position: relative; min-height: 76px; background: #111413; color: #f1f2ee; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 30px; font: 10px var(--yz-type-family-mono); border-top: 1px solid #303632; }
 .direction-review > div { display: flex; gap: 6px; }
 .direction-review a { min-height: 44px; display: flex; align-items: center; }
@@ -136,5 +141,5 @@
   .study-grid { grid-template-columns: 1fr; gap: 38px; }.study-footer { font-size: 10px; line-height: 1.6; }
 }
 @media (max-width: 360px) { .direction-stage { padding-inline: 16px; } .direction-review > div a { font-size: 8px; padding-inline: 7px; }.direction-art { top: 75px; }.groove .direction-art { top: 236px; }.bloom .direction-art { top: 38px; } }
-@media (prefers-reduced-motion: reduce) { .study-image img { transition: none; }.study-card:hover img { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .study-image img { transition: none; }.study-card:hover img { transform: none; }.mercury .making i { animation: none; opacity: 1; } }
 @media (forced-colors: active) { .direction-review a[aria-current] { border: 2px solid LinkText; }.direction-art { forced-color-adjust: none; }.making i { background: CanvasText; } }

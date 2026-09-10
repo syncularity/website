@@ -18,11 +18,20 @@ export function Artwork({ kind, motionStudy }: { kind: Direction; motionStudy?: 
     const fine = matchMedia('(hover: hover) and (pointer: fine)');
     let paused = false, visible = true, disposed = false;
     let frame = 0, last = 0, elapsed = 0;
+    let compact = matchMedia('(max-width: 700px)').matches;
+    let slowFrames = 0;
     let targetX = 0, targetY = 0, pointerX = 0, pointerY = 0;
     const canRun = () => !disposed && !paused && !reduced.matches && visible && !document.hidden;
     const draw = () => {
-      paintArtwork(ctx, motionStudy ? createMotionArtwork(motionStudy, elapsed, pointerX, pointerY)
+      const start = performance.now();
+      paintArtwork(ctx, motionStudy ? createMotionArtwork(motionStudy, elapsed, pointerX, pointerY, compact)
         : createArtwork(kind, elapsed, pointerX, pointerY));
+      // A sustained expensive render lowers density once, without oscillation.
+      if (motionStudy && !compact) {
+        slowFrames = performance.now() - start > 18 ? slowFrames + 1 : Math.max(0, slowFrames - 1);
+        if (slowFrames >= 8) compact = true;
+      }
+      host.dataset.detail = compact ? 'compact' : 'full';
       host.dataset.ready = 'true';
     };
     const tick = (now: number) => {
@@ -40,6 +49,8 @@ export function Artwork({ kind, motionStudy }: { kind: Direction; motionStudy?: 
     const sync = () => {
       cancelAnimationFrame(frame); frame = 0; last = 0;
       host.dataset.motion = reduced.matches ? 'reduced' : paused ? 'paused' : 'playing';
+      const stage = host.closest<HTMLElement>('.direction-stage');
+      if (stage) stage.dataset.motion = canRun() ? 'playing' : 'stopped';
       button.disabled = reduced.matches;
       button.setAttribute('aria-pressed', String(paused || reduced.matches));
       button.textContent = reduced.matches ? 'Motion off' : paused ? 'Play motion ↗' : 'Pause motion Ⅱ';
@@ -47,7 +58,8 @@ export function Artwork({ kind, motionStudy }: { kind: Direction; motionStudy?: 
       if (canRun()) frame = requestAnimationFrame(tick);
     };
     const resize = () => {
-      const width = Math.min(1800, Math.round(host.clientWidth * Math.min(devicePixelRatio, 2)));
+      if (matchMedia('(max-width: 700px)').matches) compact = true;
+      const width = Math.min(compact ? 1100 : 1800, Math.round(host.clientWidth * Math.min(devicePixelRatio, compact ? 1.5 : 2)));
       if (!width) return;
       canvas.width = width; canvas.height = width * .8;
       ctx.setTransform(width / 1000, 0, 0, width / 1000, 0, 0);

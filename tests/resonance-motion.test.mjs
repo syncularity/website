@@ -35,3 +35,15 @@ for (const study of motionStudies) {
     assert.doesNotMatch(svg, /NaN|Infinity|<script|<image|<foreignObject/);
   });
 }
+
+test('compact Mercury keeps its silhouette with fewer, larger glyphs', () => {
+  for (const time of [0, 4, 12, 30, 60]) {
+    const full = createMotionArtwork('mercury', time);
+    const compact = createMotionArtwork('mercury', time, 0, 0, true);
+    assert.ok(compact.marks.length < full.marks.length * .8);
+    assert.ok(compact.marks.length > 1200);
+    assert.ok(compact.marks.every(mark => mark.size === 10));
+    const bounds = art => [Math.min(...art.marks.map(m => m.x)), Math.max(...art.marks.map(m => m.x)), Math.min(...art.marks.map(m => m.y)), Math.max(...art.marks.map(m => m.y))];
+    bounds(full).forEach((value, i) => assert.ok(Math.abs(value - bounds(compact)[i]) <= 12));
+  }
+});
