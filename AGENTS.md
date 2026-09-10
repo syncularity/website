@@ -4,6 +4,6 @@ The public company placeholder is a small Next.js App Router application. Keep c
 
 - Use Node 24 and `npm ci`.
 - Run `npm run check` before deployment: typecheck, animation tests, and production build.
-- Preserve the reviewed design, keyboard motion control, reduced-motion behavior, and hidden-tab suspension. Clean up browser listeners and animation frames on unmount.
+- Preserve the reviewed design, keyboard motion control and hidden-tab suspension. The landing artwork, header mark and status dot intentionally run regardless of system reduced-motion preferences. Clean up browser listeners and animation frames on unmount.
 - The Vercel project is `syncularity-website` in Rudy's personal account; verify account, Git connection and domains before deployment. Never infer that a local build changed the public site.
 - Site and deployment changes require the user's authorization. Preserve the prior production deployment for rollback.
