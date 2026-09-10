@@ -1,6 +1,6 @@
 # Syncularity website
 
-The public placeholder for Syncularity: an animated ASCII disc, waveform mark and company wordmark. Built with Next.js 15 and React 19, preserving the existing site's framework and the approved local design.
+The public placeholder for Syncularity uses the selected Mercury ASCII sculpture in the Resonance composition, a waveform mark, and the company wordmark. Built with Next.js 15 and React 19.
 
 ## Development
 
@@ -27,5 +27,19 @@ The Vercel project is `syncularity-website` in Rudy's personal account, connecte
 Before release, run the checks and review the preview at desktop/mobile widths with keyboard and reduced-motion settings. After release, verify both domains and the served deployment's commit. Use the previous ready production deployment for rollback after future releases.
 
 No environment variables are needed. Never commit `.vercel`, environment files, credentials or private company records.
+
+## Design review
+
+`/` presents the selected Mercury design without review navigation. `/directions` retains the earlier visual directions at `/directions/resonance`, `/directions/groove`, and `/directions/bloom`. Review routes are marked noindex and carry a separate concept navigation bar.
+
+The artwork is original procedural geometry with no external assets or added runtime dependencies. Each design has its own fixed palette: near-black, warm paper, and electric blue. Run `node scripts/generate-direction-stills.mjs` under Node 24 after changing the geometry to regenerate the complete SVG fallbacks. Motion runs at a capped frame rate, stops when paused, offscreen or in hidden tabs, and respects reduced-motion settings. Pointer response is limited to fine pointers. Static artwork and navigation remain available without JavaScript.
+
+### Resonance motion studies
+
+`/resonance` retains the three ASCII motion studies: `/resonance/mercury`, `/resonance/strange-loop`, and `/resonance/chorus`. Mercury is the selected design, with stronger liquid folds and traveling ripples. Its footer contains only “Stay tuned.” Its decorative status dot gently blinks while the artwork runs; this is not a backend health indicator. Pause, reduced motion, hidden tabs, and offscreen suspension also stop the blink.
+
+Small screens use a coarser glyph grid and a capped 1.5 device-pixel ratio. Sustained rendering costs above 18 ms also reduce geometry and glyph density on larger screens. Detail only decreases during a mounted session, avoiding repeated visual switching. All artwork remains capped at 24 frames per second, with no React state updates in the frame loop.
+
+After modifying these surfaces, run `node scripts/generate-motion-stills.mjs` to regenerate their local SVG fallbacks. Geometry tests cover a minute of motion, pointer extremes, ASCII-only output, depth-cell uniqueness, bounds, and compact-render silhouette preservation. The code must be released separately before it changes production.
 
 PostCSS is overridden to a patched 8.x release because the pinned Next.js 15 release otherwise installs an older vulnerable parser. Keep the dependency audit clean when updating the lockfile.
