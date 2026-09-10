@@ -20,7 +20,7 @@ export function DirectionPage({ kind, motionStudy, review = true }: { kind: Dire
         {kind === 'resonance' && <>
           <div className="art-caption"><span>Music, art & technology</span><span className="caption-line" /></div>
           <Artwork kind={kind} motionStudy={motionStudy} />
-          <div className="direction-title"><p>A new frequency is taking shape.</p><h1>Syncularity<span>✳</span></h1></div>
+          <div className="direction-title"><p>A new frequency is taking shape.</p><h1>Syncularity<span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" focusable="false"><path d="M12 2v20M2 12h20M5 5l14 14M5 19L19 5" /></svg></span></h1></div>
           <span className="coordinate" aria-hidden="true">+<br /><br /><br />+</span>
         </>}
         {kind === 'groove' && <>
