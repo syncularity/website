@@ -35,6 +35,7 @@
 .direction-title p { color: var(--yz-color-text-muted); margin: 0 0 22px 4px; font-size: 14px; }
 .direction-title h1 { font: 400 clamp(76px, 14.3vw, 226px)/.86 var(--yz-type-family-sans); letter-spacing: -.084em; white-space: nowrap; }
 .direction-title h1 span { color: var(--yz-color-accent); font-size: .21em; margin-left: .6em; vertical-align: top; display: inline-block; margin-top: .2em; }
+.direction-title h1 span svg { display: block; width: 1em; height: 1em; }
 .art-caption { position: absolute; z-index: 1; top: 40px; left: 0; display: flex; align-items: center; gap: 18px; font: 9px var(--yz-type-family-mono); text-transform: uppercase; letter-spacing: 1.4px; color: var(--yz-color-text-muted); }
 .caption-line { display: block; width: 52px; height: 1px; background: var(--yz-color-border); }
 .coordinate { position: absolute; left: 0; top: 210px; color: var(--yz-color-text-muted); font: 12px/70px var(--yz-type-family-mono); }
