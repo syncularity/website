@@ -1,0 +1,41 @@
+import Link from 'next/link';
+import { Artwork } from './artwork';
+import { directions, directionNames, type Direction } from '../../lib/directions';
+import './directions.css';
+
+export function DirectionPage({ kind }: { kind: Direction }) {
+  return <div className={`direction ${kind}`}>
+    <div className="direction-stage">
+      <header className="direction-header">
+        <a href="/" className="direction-brand" aria-label="Syncularity home"><svg className="direction-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 16h3l3-8 7 16 3-8h4" /><path d="M6 23h3M23 9h3" opacity=".5" /></svg>{kind !== 'bloom' && <span>Syncularity</span>}</a>
+        <span className="making"><i /> In the making</span>
+      </header>
+      <main className="direction-main" id="main">
+        {kind === 'resonance' && <>
+          <div className="art-caption"><span>Music, art & technology</span><span className="caption-line" /></div>
+          <Artwork kind={kind} />
+          <div className="direction-title"><p>A new frequency is taking shape.</p><h1>Syncularity<span>✳</span></h1></div>
+          <span className="coordinate" aria-hidden="true">+<br /><br /><br />+</span>
+        </>}
+        {kind === 'groove' && <>
+          <div className="groove-heading"><p>Music. Technology. Taste.</p><h1>A new<br /><em>frequency.</em></h1></div>
+          <Artwork kind={kind} />
+          <div className="groove-note"><span className="note-line" /><p>Something good is taking shape.</p></div>
+          <span className="groove-index" aria-hidden="true">S—01</span>
+        </>}
+        {kind === 'bloom' && <>
+          <div className="bloom-orbit" aria-hidden="true" />
+          <Artwork kind={kind} />
+          <div className="bloom-heading"><p>Music, art & the unexpected.</p><h1>Syncularity</h1><span>A new frequency is taking shape.</span></div>
+          <span className="bloom-coordinate left" aria-hidden="true">+</span><span className="bloom-coordinate right" aria-hidden="true">+</span>
+        </>}
+      </main>
+      <footer className="direction-footer"><span>{kind === 'groove' ? 'Syncularity © 2026' : 'Independent by nature.'}</span><span>{kind === 'groove' ? 'Stay curious.': 'Stay tuned.'}</span></footer>
+    </div>
+    <nav className="direction-review" aria-label="Design directions">
+      <a href="/directions" className="review-label">Design study <span> / 2026</span></a>
+      <div>{directions.map((value, i) => <Link key={value} href={`/directions/${value}`} aria-current={kind === value ? 'page' : undefined}><span>0{i + 1}</span> {directionNames[value]}</Link>)}</div>
+      <span className="review-hint">Three directions. One frequency.</span>
+    </nav>
+  </div>;
+}

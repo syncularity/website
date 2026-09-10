@@ -28,4 +28,10 @@ Before release, run the checks and review the preview at desktop/mobile widths w
 
 No environment variables are needed. Never commit `.vercel`, environment files, credentials or private company records.
 
+## Design review
+
+`/directions` compares three proposed visual directions, with individual animated pages at `/directions/resonance`, `/directions/groove`, and `/directions/bloom`. The existing homepage remains at `/`. These review routes are marked noindex and carry a separate concept navigation bar; selecting a final homepage is a subsequent change.
+
+The artwork is original procedural geometry with no external assets or added runtime dependencies. Each design has its own fixed palette: near-black, warm paper, and electric blue. Run `node scripts/generate-direction-stills.mjs` under Node 24 after changing the geometry to regenerate the complete SVG fallbacks. Motion runs at a capped frame rate, stops when paused, offscreen or in hidden tabs, and respects reduced-motion settings. Pointer response is limited to fine pointers. Static artwork and navigation remain available without JavaScript.
+
 PostCSS is overridden to a patched 8.x release because the pinned Next.js 15 release otherwise installs an older vulnerable parser. Keep the dependency audit clean when updating the lockfile.
