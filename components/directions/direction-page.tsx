@@ -1,3 +1,4 @@
+import { brandAssets } from '../../lib/brand';
 import Link from 'next/link';
 import { Artwork } from './artwork';
 import { directions, directionNames, type Direction } from '../../lib/directions';
@@ -10,8 +11,7 @@ export function DirectionPage({ kind, motionStudy, review = true }: { kind: Dire
     <div className="direction-stage">
       <header className="direction-header">
         <a href="/" className="direction-brand" aria-label="Syncularity home">
-          {selected ? <img className="direction-mark ascii-play-mark" src="/ascii-play.svg?v=signal-play-v1" width="36" height="36" alt="" draggable="false" />
-            : <svg className="direction-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 16h3l3-8 7 16 3-8h4" /><path d="M6 23h3M23 9h3" opacity=".5" /></svg>}
+          <img className={`direction-mark${selected ? " ascii-play-mark" : ""}`} src={brandAssets.mark} width="36" height="36" alt="" draggable="false" />
           {kind !== 'bloom' && <span>Syncularity</span>}
         </a>
         <span className="making"><i aria-hidden="true" /> In the making</span>

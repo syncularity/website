@@ -1,5 +1,7 @@
 "use client";
 
+import { brandAssets } from '../lib/brand';
+
 import { useEffect, useRef } from 'react';
 import { attachSignal } from '../lib/signal';
 
@@ -19,7 +21,7 @@ export function Placeholder() {
   return (
 <div className="page" ref={root}>
     <header>
-      <a className="brand" href="/" aria-label="Syncularity home"><img src="/mark.svg" width="28" height="28" alt="" /><span>Syncularity</span></a>
+      <a className="brand" href="/" aria-label="Syncularity home"><img src={brandAssets.mark} width="28" height="28" alt="" /><span>Syncularity</span></a>
       <span className="edition">IN THE MAKING</span>
     </header>
     <main>
