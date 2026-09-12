@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       alt: 'A silver and mint ASCII Mercury sculpture above the Syncularity wordmark.',
     }],
   },
-  icons: { icon: '/ascii-play-icon.svg' },
+  icons: { icon: { url: '/ascii-play-icon.svg?v=signal-play-v1', type: 'image/svg+xml' } },
 };
 
 export const viewport: Viewport = { themeColor: '#08090b' };
