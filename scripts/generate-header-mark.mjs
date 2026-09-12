@@ -1,22 +1,25 @@
 import { writeFileSync } from 'node:fs';
 
-// A right-facing play silhouette sampled as a small ASCII field. Keep the
-// coarse grid readable at the header's 32–36px size, with a mint leading edge.
+// The selected Signal Play study: seven rows with a sharp mint leading edge.
+// Draw ASCII glyphs as paths so the mark never depends on a platform font.
+const paths = {
+  '+': 'M1 3H5M3 1V5',
+  '#': 'M2 .5L1.5 5.5M4.5 .5L4 5.5M.5 2H5.5M.2 4H5.2',
+  '=': 'M1 2H5M1 4H5',
+  '*': 'M3 .5V5.5M.8 1.6L5.2 4.4M.8 4.4L5.2 1.6',
+};
 const glyphs = [];
-// Trim the top/bottom tips and round the leading point into a short edge.
-// This lowers the visible height without changing the header's layout box.
-for (let row = 1; row <= 11; row++) {
-  const width = Math.min(10, Math.round((1 - Math.abs(row - 6) / 6) * 11) + 1);
-  const cap = row === 1 || row === 11;
-  for (let col = cap ? 1 : 0; col < width; col++) {
+for (const [row, width] of [1, 3, 5, 7, 5, 3, 1].entries()) {
+  for (let col = 0; col < width; col++) {
     const edge = col === width - 1;
-    const corner = cap || (edge && Math.abs(row - 6) <= 1);
-    const glyph = corner ? ':' : edge ? '+' : col < 2 ? '#' : ['+', '*', ':', '='][(row + col * 3) % 4];
-    const opacity = corner ? .7 : edge ? .95 : col < 2 ? .9 : .55 + (row % 3) * .12;
-    glyphs.push(`<text x="${23 + col * 8}" y="${16 + row * 8}" fill="${edge ? '#b3f2d2' : '#e1e8e4'}" opacity="${opacity.toFixed(2)}">${glyph}</text>`);
+    const glyph = edge ? '+' : ['#', '*', '='][(row + col) % 3];
+    const x = (12 + col * 10.7).toFixed(2);
+    const y = (12 + row * 11.4).toFixed(2);
+    glyphs.push(`<path d="${paths[glyph]}" transform="translate(${x} ${y}) scale(1.400)" stroke="${edge ? '#b3f2d2' : '#edf1eb'}" stroke-width="1.15" stroke-linecap="square" fill="none" opacity="${edge ? '1.00' : '0.88'}"/>`);
   }
 }
-const field = `<g font-family="monospace" font-size="9" font-weight="700" text-anchor="middle" dominant-baseline="central">${glyphs.join('')}</g>`;
-writeFileSync(new URL('../public/ascii-play.svg', import.meta.url), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">${field}</svg>\n`);
-// Keep the same symbol readable against both light and dark browser tabs.
-writeFileSync(new URL('../public/ascii-play-icon.svg', import.meta.url), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="26" fill="#090d0c"/>${field}</svg>\n`);
+const field = glyphs.join('');
+const svg = (background = '') => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><title>Syncularity Signal Play</title>${background}${field}</svg>\n`;
+writeFileSync(new URL('../public/ascii-play.svg', import.meta.url), svg());
+// A dark backing keeps the same mark visible on light and dark browser tabs.
+writeFileSync(new URL('../public/ascii-play-icon.svg', import.meta.url), svg('<rect width="100" height="100" rx="20" fill="#090d0c"/>'));
