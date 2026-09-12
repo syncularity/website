@@ -1,3 +1,4 @@
+import { brandAssets } from '../lib/brand';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
       alt: 'A silver and mint ASCII Mercury sculpture above the Syncularity wordmark.',
     }],
   },
-  icons: { icon: { url: '/ascii-play-icon.svg?v=signal-play-v1', type: 'image/svg+xml' } },
+  icons: { icon: { url: brandAssets.icon, type: 'image/svg+xml' } },
 };
 
 export const viewport: Viewport = { themeColor: '#08090b' };

@@ -49,3 +49,7 @@ PostCSS is overridden to a patched 8.x release because the pinned Next.js 15 rel
 ### Share card
 
 `public/share/mercury-v1.png` is the static 1200 × 630 share image used by Open Graph and large-image social cards. It embeds the selected ASCII artwork and the site's Helvetica Neue wordmark, so consumers need no JavaScript or fonts. `scripts/share-card.html` is its source composition: capture it in Chrome on macOS at 1200 × 630 with device scale factor 1 after its image loads. Commit the rendered PNG when updating the composition; use a new filename when replacing it to avoid reusing a cached image URL. Messaging services can still cache previously shared page metadata.
+
+### Common brand assets
+
+`lib/brand.ts` owns website logo references. The public `/ascii-play.svg` and `/ascii-play-icon.svg` are the canonical header and favicon assets for the website and HQ; HQ consumes these from `https://www.syncularity.io` rather than maintaining copied artwork. Keep those paths stable, regenerate both together, and update asset-version references in both repositories when revising the logo. The Mercury sculpture and social card are separate artwork.

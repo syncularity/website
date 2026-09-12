@@ -59,6 +59,7 @@
 .groove .direction-stage { padding-top: 28px; }
 .groove .direction-header { border-bottom: 1px solid var(--yz-color-border); padding-bottom: 22px; }
 .groove .direction-brand { font-weight: 600; }
+.groove .direction-mark { background: #090d0c; border-radius: 5px; }
 .groove .making { color: var(--yz-color-text); }
 .groove .direction-main { min-height: 667px; }
 .groove-heading { position: absolute; top: 43px; left: 0; z-index: 1; }
