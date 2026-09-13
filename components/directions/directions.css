@@ -40,6 +40,12 @@
 .coordinate { position: absolute; left: 0; top: 210px; color: var(--yz-color-text-muted); font: 12px/70px var(--yz-type-family-mono); }
 .direction-footer { border-top: 1px solid var(--yz-color-border); margin-top: 20px; min-height: 61px; padding: 8px 0; color: var(--yz-color-text-muted); font: 10px var(--yz-type-family-mono); }
 .mercury .direction-footer { justify-content: flex-end; }
+.backstage-period { position: relative; display: inline-block; }
+.backstage-link { position: absolute; width: 44px; height: 44px; right: -14px; top: 50%; transform: translateY(-50%); }
+.direction .backstage-link:focus-visible { outline-offset: -2px; }
+.backstage-label { position: absolute; right: 14px; bottom: 100%; padding: 8px 0; white-space: nowrap; color: var(--yz-color-text); visibility: hidden; }
+.backstage-link:focus-visible .backstage-label { visibility: visible; }
+@media (hover: hover) and (pointer: fine) { .backstage-link:hover .backstage-label { visibility: visible; } }
 .selected-home .direction-stage { min-height: 100svh; }
 .mercury .making i { animation: status-blink 2.8s ease-in-out infinite; animation-play-state: paused; }
 .mercury .direction-stage[data-motion='playing'] .making i { animation-play-state: running; }
