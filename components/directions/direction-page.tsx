@@ -36,7 +36,15 @@ export function DirectionPage({ kind, motionStudy, review = true }: { kind: Dire
           <span className="bloom-coordinate left" aria-hidden="true">+</span><span className="bloom-coordinate right" aria-hidden="true">+</span>
         </>}
       </main>
-      <footer className="direction-footer">{!selected && <span>{kind === 'groove' ? 'Syncularity © 2026' : 'Independent by nature.'}</span>}<span>{kind === 'groove' ? 'Stay curious.': 'Stay tuned.'}</span></footer>
+      <footer className="direction-footer">
+        {!selected && <span>{kind === 'groove' ? 'Syncularity © 2026' : 'Independent by nature.'}</span>}
+        {selected && !review ? <span>Stay tuned<span className="backstage-period">
+          <span aria-hidden="true">.</span>
+          <a className="backstage-link" href="https://hq.syncularity.io/hq/login" aria-label="Go backstage" rel="nofollow" referrerPolicy="no-referrer">
+            <span className="backstage-label" aria-hidden="true">Go backstage ↗</span>
+          </a>
+        </span></span> : <span>{kind === 'groove' ? 'Stay curious.' : 'Stay tuned.'}</span>}
+      </footer>
     </div>
     {review && (motionStudy ? <nav className="direction-review" aria-label="Resonance motion studies">
       <a href="/resonance" className="review-label">Resonance <span> / Motion studies</span></a>

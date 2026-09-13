@@ -32,6 +32,8 @@ No environment variables are needed. Never commit `.vercel`, environment files, 
 
 `/` presents the selected Mercury design without review navigation. `/directions` retains the earlier visual directions at `/directions/resonance`, `/directions/groove`, and `/directions/bloom`. Review routes are marked noindex and carry a separate concept navigation bar.
 
+On `/`, the period in “Stay tuned.” links to the HQ login at `https://hq.syncularity.io/hq/login`. Its 44px target reveals “Go backstage” on hover or keyboard focus and works with a single tap without JavaScript. Review routes retain their original footer. The entrance is visually discreet, not a security boundary; HQ authentication controls access.
+
 The artwork is original procedural geometry with no external assets or added runtime dependencies. Each design has its own fixed palette: near-black, warm paper, and electric blue. Run `node scripts/generate-direction-stills.mjs` under Node 24 after changing the geometry to regenerate the complete SVG fallbacks. Motion runs at a capped frame rate, stops when paused, offscreen or in hidden tabs, and intentionally runs regardless of the system reduced-motion setting. Pointer response is limited to fine pointers. Static artwork and navigation remain available without JavaScript.
 
 ### Resonance motion studies
