@@ -40,7 +40,7 @@ export function DirectionPage({ kind, motionStudy, review = true }: { kind: Dire
         {!selected && <span>{kind === 'groove' ? 'Syncularity © 2026' : 'Independent by nature.'}</span>}
         {selected && !review ? <span>Stay tuned<span className="backstage-period">
           <span aria-hidden="true">.</span>
-          <a className="backstage-link" href="https://hq.syncularity.io/hq/login" aria-label="Go backstage" rel="nofollow" referrerPolicy="no-referrer">
+          <a className="backstage-link" href="https://www.syncularity.io/hq" aria-label="Go backstage" rel="nofollow" referrerPolicy="no-referrer">
             <span className="backstage-label" aria-hidden="true">Go backstage ↗</span>
           </a>
         </span></span> : <span>{kind === 'groove' ? 'Stay curious.' : 'Stay tuned.'}</span>}
