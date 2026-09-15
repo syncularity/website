@@ -3,3 +3,5 @@ export const brandAssets = {
   mark: '/ascii-play.svg?v=signal-play-v1',
   icon: '/ascii-play-icon.svg?v=signal-play-v1',
 };
+
+export const brandTagline = 'Curating where music, art & technology meet.';
