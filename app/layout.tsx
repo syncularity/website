@@ -1,4 +1,4 @@
-import { brandAssets } from '../lib/brand';
+import { brandAssets, brandTagline } from '../lib/brand';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
@@ -6,11 +6,11 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.syncularity.io'),
   title: 'Syncularity',
-  description: 'Syncularity. A new frequency is taking shape.',
+  description: brandTagline,
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Syncularity',
-    description: 'A new frequency is taking shape.',
+    description: brandTagline,
     url: '/',
     siteName: 'Syncularity',
     type: 'website',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Syncularity',
-    description: 'A new frequency is taking shape.',
+    description: brandTagline,
     images: [{
       url: '/share/mercury-v1.png',
       alt: 'A silver and mint ASCII Mercury sculpture above the Syncularity wordmark.',
