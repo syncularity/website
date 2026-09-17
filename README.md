@@ -14,11 +14,12 @@ npm run dev
 Open `http://localhost:3000`. To verify and serve a production build:
 
 ```sh
+npx playwright install --only-shell chromium # once per browser version
 npm run check
 npm start
 ```
 
-`check` runs TypeScript, the Node animation tests and `next build`. Tests cover animation progression, pause/resume, reduced motion, hidden tabs and effect cleanup. All artwork and fonts are local; no forms, analytics, external APIs, or audio playback are included. The page remains readable without JavaScript.
+`check` runs TypeScript, the Node animation tests, one `next build`, and two Chromium production-build smoke cases. After a build, `npm run test:browser` reruns only the browser cases. The harness owns port 3107, refuses an existing server, isolates browser contexts and retains failure traces in ignored `test-results/`. It verifies real canvas pause/resume through the keyboard, local assets/social metadata, the canonical HQ link and the mobile no-JavaScript fallback. HQ authentication is covered by the content-pipeline repository; the website smoke does not call production HQ. Tests cover animation progression, pause/resume, reduced motion, hidden tabs and effect cleanup. All artwork and fonts are local; no forms, analytics, external APIs, or audio playback are included. The page remains readable without JavaScript.
 
 ## Deployment
 
