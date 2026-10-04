@@ -19,11 +19,11 @@ npm run check
 npm start
 ```
 
-`check` runs TypeScript, the Node animation tests, one `next build`, and two Chromium production-build smoke cases. After a build, `npm run test:browser` reruns only the browser cases. The harness owns port 3107, refuses an existing server, isolates browser contexts and retains failure traces in ignored `test-results/`. It verifies real canvas pause/resume through the keyboard, local assets/social metadata, the canonical HQ link and the mobile no-JavaScript fallback. HQ authentication is covered by the content-pipeline repository; the website smoke does not call production HQ. Tests cover animation progression, pause/resume, reduced motion, hidden tabs and effect cleanup. All artwork and fonts are local; no forms, analytics, external APIs, or audio playback are included. The page remains readable without JavaScript.
+`check` runs TypeScript, the Node animation tests, Python 3 merge-verification regressions, one `next build`, and two Chromium production-build smoke cases. After a build, `npm run test:browser` reruns only the browser cases. The harness owns port 3107, refuses an existing server, isolates browser contexts and retains failure traces in ignored `test-results/`. It verifies real canvas pause/resume through the keyboard, local assets/social metadata, the canonical HQ link and the mobile no-JavaScript fallback. HQ authentication is covered by the content-pipeline repository; the website smoke does not call production HQ. Tests cover animation progression, pause/resume, reduced motion, hidden tabs and effect cleanup. All artwork and fonts are local; no forms, analytics, external APIs, or audio playback are included. The page remains readable without JavaScript.
 
 ## Deployment
 
-The existing Vercel project is `syncularity-website` in the company `syncularity` team, connected to the public `syncularity/website` repository. The company site uses `www.syncularity.io`, with `syncularity.io` redirecting to it. The `main` branch is the production source; feature branches receive preview deployments protected by Vercel Authentication. Use a feature-branch preview to verify team access and Git deployment after a transfer, then confirm the production deployment and domains remain unchanged. Update this project for subsequent releases; preserve the domain's email records.
+The existing Vercel project is `syncularity-website` in the company `syncularity` team, connected to the public `syncularity/website` repository. The company site uses `www.syncularity.io`, with `syncularity.io` redirecting to it. The `main` branch is the production source, with automatic Git deployment disabled in `vercel.json`: merging updates source only, and production deployment requires separate authorization. Feature branches receive preview deployments protected by Vercel Authentication, except the excluded merge-verification review branch. Use an explicitly authorized feature-branch preview to verify team access and Git deployment after a transfer, then confirm the production deployment and domains remain unchanged. Update this project for subsequent releases; preserve the domain's email records.
 
 Before release, run the checks and review the preview at desktop/mobile widths with keyboard and reduced-motion settings. After release, verify both domains and the served deployment's commit. Use the previous ready production deployment for rollback after future releases.
 
@@ -56,3 +56,10 @@ PostCSS is overridden to a patched 8.x release because the pinned Next.js 15 rel
 ### Common brand assets
 
 `lib/brand.ts` owns website logo references and the tagline “Curating where music, art & technology meet.” The landing caption and page/share descriptions use this copy; keep it aligned with HQ’s `src/lib/brand.ts`. The public `/ascii-play.svg` and `/ascii-play-icon.svg` are the canonical header and favicon assets for the website and HQ; HQ consumes these from `https://www.syncularity.io` rather than maintaining copied artwork. Keep those paths stable, regenerate both together, and update asset-version references in both repositories when revising the logo. The Mercury sculpture and social card are separate artwork.
+
+## Proposed merge rules
+
+[Merge verification](docs/merge-gate.md) documents the prepared required status,
+complete local fallback and exact ruleset proposal. Activation and commit-status
+writes require separate action-time approval. The helper previews by default and
+never dispatches Actions. No repository settings are changed by these files.

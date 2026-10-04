@@ -8,8 +8,9 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.mjs",
-    "check": "npm run typecheck && npm test && npm run build && npm run test:browser",
-    "test:browser": "playwright test"
+    "check": "npm run typecheck && npm test && npm run test:merge-gate && npm run build && npm run test:browser",
+    "test:browser": "playwright test",
+    "test:merge-gate": "python3 -m unittest discover -s tests -p test_merge_verification.py"
   },
   "engines": {
     "node": "24.x"
