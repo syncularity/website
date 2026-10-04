@@ -23,7 +23,7 @@ npm start
 
 ## Deployment
 
-The existing Vercel project is `syncularity-website` in the company `syncularity` team, connected to the public `syncularity/website` repository. The company site uses `www.syncularity.io`, with `syncularity.io` redirecting to it. The `main` branch is the production source; feature branches receive preview deployments protected by Vercel Authentication. Use a feature-branch preview to verify team access and Git deployment after a transfer, then confirm the production deployment and domains remain unchanged. Update this project for subsequent releases; preserve the domain's email records.
+The existing Vercel project is `syncularity-website` in the company `syncularity` team, connected to the public `syncularity/website` repository. The company site uses `www.syncularity.io`, with `syncularity.io` redirecting to it. The `main` branch is the production source, with automatic Git deployment disabled in `vercel.json`: merging updates source only, and production deployment requires separate authorization. Feature branches receive preview deployments protected by Vercel Authentication, except the excluded merge-verification review branch. Use an explicitly authorized feature-branch preview to verify team access and Git deployment after a transfer, then confirm the production deployment and domains remain unchanged. Update this project for subsequent releases; preserve the domain's email records.
 
 Before release, run the checks and review the preview at desktop/mobile widths with keyboard and reduced-motion settings. After release, verify both domains and the served deployment's commit. Use the previous ready production deployment for rollback after future releases.
 
