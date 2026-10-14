@@ -16,7 +16,7 @@
     "node": "24.x"
   },
   "dependencies": {
-    "next": "15.5.25",
+    "next": "15.5.27",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
