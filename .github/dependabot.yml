@@ -4,6 +4,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # Next majors are done as deliberate upgrades, not grouped bumps.
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
     groups:
       npm-dependencies:
         patterns:
