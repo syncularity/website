@@ -53,6 +53,20 @@ PostCSS is overridden to a patched 8.x release because the pinned Next.js 15 rel
 
 `public/share/mercury-v1.png` is the static 1200 × 630 share image used by Open Graph and large-image social cards. It embeds the selected ASCII artwork and the site's Helvetica Neue wordmark, so consumers need no JavaScript or fonts. `scripts/share-card.html` is its source composition: capture it in Chrome on macOS at 1200 × 630 with device scale factor 1 after its image loads. Commit the rendered PNG when updating the composition; use a new filename when replacing it to avoid reusing a cached image URL. Messaging services can still cache previously shared page metadata.
 
+### Share video
+
+The landing page also advertises `og:video`: the approved Groove loop, Signal rings laid flat under the wordmark with a mint playhead, six seconds at 30 fps. `public/share/mercury-v1.png` stays the `og:image` and Twitter image, so clients that ignore or don't autoplay `og:video` show the same card as before. Whether a client plays the video, autoplays it, mutes it or loops it is up to that client; it is not verified here.
+
+`lib/share-video.ts` owns the renderer, sizes and the three versioned MP4 paths: `groove-v1.mp4` (landing), `groove-backstage-v1.mp4` and `groove-investors-v1.mp4`. HQ references the last two from `https://www.syncularity.io`, like the logo, so keep those paths stable and use a new filename when the artwork changes. The cards carry only the wordmark and the public entrance label.
+
+Regenerate the MP4s on macOS, like the share card, with the Playwright Chromium shell and ffmpeg/ffprobe on `PATH`:
+
+```sh
+node scripts/export-share-video.mjs            # all three, or name targets
+```
+
+The script renders 180 frames per target in Chromium at device scale factor 1, encodes silent H.264 (yuv420p, BT.709, faststart) with single-threaded bitexact x264, and replaces a file in `public/share/` only after ffprobe reports one 1200 × 630 video stream with 180 frames over six seconds. Any failure exits non-zero after closing the browser. Frames, tool versions and SHA-256 hashes go to ignored `artifacts/share-video/`. Output is reproducible for the same Chromium and ffmpeg builds. Commit the rendered MP4s. `tests/share-video.test.mjs` covers loop closure, bounds and labels; the browser smoke checks the metadata and that every MP4 is served.
+
 ### Common brand assets
 
 `lib/brand.ts` owns website logo references and the tagline “Curating where music, art & technology meet.” The landing caption and page/share descriptions use this copy; keep it aligned with HQ’s `src/lib/brand.ts`. The public `/ascii-play.svg` and `/ascii-play-icon.svg` are the canonical header and favicon assets for the website and HQ; HQ consumes these from `https://www.syncularity.io` rather than maintaining copied artwork. Keep those paths stable, regenerate both together, and update asset-version references in both repositories when revising the logo. The Mercury sculpture and social card are separate artwork.
