@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { shareVideoPaths } from '../../lib/share-video';
 
 const hqEntry = 'https://www.syncularity.io/hq';
 
@@ -52,6 +53,23 @@ test('production landing loads its assets and supports keyboard pause and resume
   expect(png.subarray(1, 4).toString()).toBe('PNG');
   expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
   expect(errors).toEqual([]);
+});
+
+test('share metadata keeps the Mercury image and serves every Groove loop', async ({ page }) => {
+  await page.goto('/');
+  const meta = (property: string) => page.locator(`meta[property="${property}"]`).first().getAttribute('content');
+  expect(await meta('og:image')).toBe('https://www.syncularity.io/share/mercury-v1.png');
+  expect(await meta('og:video')).toBe(`https://www.syncularity.io${shareVideoPaths.landing}`);
+  expect(await meta('og:video:type')).toBe('video/mp4');
+  expect([await meta('og:video:width'), await meta('og:video:height')]).toEqual(['1200', '630']);
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', 'https://www.syncularity.io/share/mercury-v1.png');
+  // HQ links reference the Backstage and investor loops, so the website must serve all of them.
+  for (const path of Object.values(shareVideoPaths)) {
+    const response = await page.request.get(path);
+    expect(response.ok(), path).toBe(true);
+    expect(response.headers()['content-type']).toContain('video/mp4');
+    expect((await response.body()).subarray(4, 8).toString()).toBe('ftyp');
+  }
 });
 
 test('mobile landing stays readable with artwork and HQ entry when JavaScript is disabled', async ({ browser }) => {
